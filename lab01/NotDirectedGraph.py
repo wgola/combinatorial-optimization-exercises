@@ -1,30 +1,15 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from Graph import Graph
 
 
-class NotDirectedGraph():
+class NotDirectedGraph(Graph):
 
     def __init__(self):
-        self.matrix = []
-
-    def add_node(self):
-        if len(self.matrix) == 0:
-            self.matrix.append([0])
-        else:
-            for i in range(len(self.matrix)):
-                self.matrix[i].append(0)
-
-            self.matrix.append([0 for _ in range(len(self.matrix[0]))])
-
-    def remove_node(self, node: int):
-        if self.__check_node(node):
-            del self.matrix[node]
-
-            for i in range(len(self.matrix)):
-                del self.matrix[i][node]
+        super().__init__()
 
     def add_edge(self, first_node: int, second_node: int):
-        if self.__check_node(first_node) and self.__check_node(second_node):
+        if self._check_node(first_node) and self._check_node(second_node):
             if first_node == second_node:
                 self.matrix[first_node][second_node] = 2
             else:
@@ -32,12 +17,12 @@ class NotDirectedGraph():
                 self.matrix[second_node][first_node] = 1
 
     def remove_edge(self, first_node: int, second_node: int):
-        if self.__check_node(first_node) and self.__check_node(second_node):
+        if self._check_node(first_node) and self._check_node(second_node):
             self.matrix[first_node][second_node] = 0
             self.matrix[second_node][first_node] = 0
 
     def get_node_degree(self, node: int):
-        if self.__check_node(node):
+        if self._check_node(node):
             return sum(self.matrix[node])
 
     def get_graph_degree(self):
@@ -79,9 +64,3 @@ class NotDirectedGraph():
 
         nx.draw(g, with_labels=True)
         plt.show()
-
-    def __check_node(self, node):
-        if node < 0 or node > len(self.matrix):
-            raise Exception("Select proper node to create an edge!")
-
-        return True
