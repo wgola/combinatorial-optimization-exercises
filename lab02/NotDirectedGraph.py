@@ -19,8 +19,12 @@ class NotDirectedGraph(Graph):
 
     def remove_edge(self, first_node: int, second_node: int):
         if self._check_node(first_node) and self._check_node(second_node):
-            self.matrix[first_node][second_node] = 0
-            self.matrix[second_node][first_node] = 0
+            if self.matrix[first_node][second_node] == 1:
+                self.matrix[first_node][second_node] = 0
+                self.matrix[second_node][first_node] = 0
+            else:
+                self.matrix[first_node][second_node] -= 1
+                self.matrix[second_node][first_node] -= 1
 
     def get_node_degree(self, node: int):
         if self._check_node(node):
