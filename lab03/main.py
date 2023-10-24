@@ -30,50 +30,6 @@ def main():
     print("Kończenie działania...")
 
 
-def dfs(graph):
-    if isinstance(graph, DirectedGraph):
-        print("Graf musi być nieskierowany!")
-        return
-
-    try:
-        answer = input("Podaj numer początkowego wierzchołka (licząc od 0):\n")
-
-        node = int(answer)
-        order, filename = graph.dfs_spanning_tree(node)
-
-        if order is None:
-            print("Graf nie jest spójny!")
-        else:
-            print("Kolejność odwiedzanych wierzchołków: ")
-            print(order)
-            print("Narysowane drzewo spinającego znajduje się w pliku '" +
-                  filename + ".pdf'")
-
-    except Exception as err:
-        print(err)
-        if err == "Graph is not simple!":
-            print("Graf musi być prosty!")
-        else:
-            print("Podano niewłaściwy wierzchołek!")
-
-
-def get_c3(graph, method):
-    try:
-        if method == "naive":
-            result, nodes = graph.contains_c3_naive()
-        else:
-            result, nodes = graph.contains_c3_multiply()
-
-        if result:
-            print("Znaleziono cykl C3: ")
-            print(str(nodes[0]) + " -> " +
-                  str(nodes[1]) + " -> " + str(nodes[2]))
-        else:
-            print("Graf nie zawiera cyklu C3!")
-    except:
-        print("Graf musi być prosty!")
-
-
 def create_graph():
     answer = input("Witaj! Wybierz opcje:\n"
                    + "1) Wczytaj graf z pliku\n"
@@ -190,7 +146,7 @@ def choose_option():
                    + "8) Wypisz posortowany ciąg stopni wierzchołków w grafie\n"
                    + "9) Znajdź cykl C3 (metoda naiwna)\n"
                    + "10) Znajdź cykl C3 (mnożenie macierzy)\n"
-                   + "11) Przeszukaj drzewo algorytmem DFS\n"
+                   + "11) Przeszukaj graf algorytmem DFS\n"
                    + "12) Wyświetl graf\n"
                    + "13) Wyjdź z programu\n")
 
@@ -279,6 +235,49 @@ def get_odd_and_even_nodes(graph):
 def get_sorted_nodes_degrees(graph):
     sorted_nodes_degrees = graph.get_nodes_degrees()
     print("Posortowany ciąg stopni wierzchołków w grafie: " + sorted_nodes_degrees)
+
+
+def get_c3(graph, method):
+    try:
+        if method == "naive":
+            result, nodes = graph.contains_c3_naive()
+        else:
+            result, nodes = graph.contains_c3_multiply()
+
+        if result:
+            print("Znaleziono cykl C3: ")
+            print(str(nodes[0]) + " -> " +
+                  str(nodes[1]) + " -> " + str(nodes[2]))
+        else:
+            print("Graf nie zawiera cyklu C3!")
+    except:
+        print("Graf musi być prosty!")
+
+
+def dfs(graph):
+    if isinstance(graph, DirectedGraph):
+        print("Graf musi być nieskierowany!")
+        return
+
+    try:
+        answer = input("Podaj numer początkowego wierzchołka (licząc od 0):\n")
+
+        node = int(answer)
+        order, filename = graph.dfs_spanning_tree(node)
+
+        if order is None:
+            print("Graf nie jest spójny!")
+        else:
+            print("Kolejność odwiedzanych wierzchołków: ")
+            print(order)
+            print("Narysowane drzewo spinającego znajduje się w pliku '" +
+                  filename + ".pdf'")
+
+    except Exception as err:
+        if str(err) == "Graph is not simple!":
+            print("Graf musi być prosty!")
+        else:
+            print("Podano niewłaściwy wierzchołek!")
 
 
 if __name__ == "__main__":
