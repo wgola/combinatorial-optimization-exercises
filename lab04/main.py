@@ -1,25 +1,23 @@
-from NotDirectedGraph import NotDirectedGraph
+from Graph import Graph
 
 
 def main():
-    tests = int(input())
+    tests = int(input().strip())
 
-    for _ in range(tests):
-        graph = NotDirectedGraph()
+    for i in range(tests):
 
-        first_line = input()
+        first_line = input().strip()
         nodes_count = int(first_line[2])
 
-        for _ in range(nodes_count):
-            graph.add_node()
+        graph = Graph(nodes_count)
+        second_line = input().strip()
 
-        second_line = input()
         edges = second_line.split(" ")
         for edge in edges:
             start, end, weight = parse_edge(edge)
             graph.add_edge(start, end, weight)
 
-        graph.show_graph("abc")
+        graph.kruskal_algorithm("input" + str(i + 1))
 
 
 def parse_edge(edge):
