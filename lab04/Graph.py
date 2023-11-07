@@ -52,7 +52,7 @@ class Graph():
 
         for v in self.graph:
             for edge in self.graph[v]:
-                if (v, edge[0], edge[1]) not in drawn_edges and (edge[0], v, edge[1]) not in drawn_edges:
+                if (edge[0], v, edge[1]) not in drawn_edges:
                     drawn_edges.append((v, edge[0], edge[1]))
                     if edge in tree.graph[v]:
                         sum_of_weights += edge[1]
@@ -61,8 +61,8 @@ class Graph():
                     else:
                         g.edge(str(v), str(edge[0]), label=str(edge[1]))
 
-        print(sum_of_weights)
         g.view(file_name, cleanup=True, quiet=True, quiet_view=True)
+        print(sum_of_weights)
 
     def has_cycle(self):
         def has_cycle_helper(v, visited, parent):
