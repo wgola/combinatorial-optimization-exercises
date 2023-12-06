@@ -17,6 +17,9 @@ class Graph():
         self.graph.add_edge(a, b, weight=weight)
 
     def chinese_postman_problem(self):
+        if not self.graph.is_connected():
+            return
+
         if self._is_eulerian():
             start_node = self.graph.vs[0]["name"]
             return self._fleury_algorithm(start_node)
